@@ -12,36 +12,73 @@ import java.util.Scanner;
  *
  * @author skyla
  */
-class GraphRunner {
-    String list = "";
-    
-    
-    public void main(String[] args) {
-        Graph gr = new Graph();
-        Scanner scn = new Scanner(System.in);
-        System.out.println("Give me your sequence:"); 
-        String str = scn.nextLine();
-        System.out.println("What letters to find?");
-        String str2 = scn.nextLine();
-        //we know for sure that there are only 2 letters in that string
-        char Strart = str2.charAt(0);
-        char Finish = str2.charAt(1);
+import java.util.HashSet;
+
+public class GraphRunner {
+    public static void main(String[] args) {
+        Graph graph = new Graph();
         
-        //covnert the string into array lsit that use has provided
-        // split string by no space
-        String[] strSplit = str.split(" ");
-  
-        // Now convert string into ArrayList
-        ArrayList<String> strList = new ArrayList<String>(Arrays.asList(strSplit));
+        // Add connections to the graph
+        graph.addConnection("CA", "XY");
+        graph.addConnection("XY", "RS");
+        graph.addConnection("YS", "ST");
+        graph.addConnection("ST", "TB");
+        graph.addConnection("AX", "BD");
+        graph.addConnection("RJ", "TB");
+        graph.addConnection("CD", "PQ");
+        graph.addConnection("QX", "AX");
+        graph.addConnection("BX", "CX");
+        graph.addConnection("DX", "EX");
+        graph.addConnection("EX", "FX");
+        graph.addConnection("FX", "GX");
+        graph.addConnection("AB", "BC");
+        graph.addConnection("CD", "DE");
+        graph.addConnection("AE", "CE");
+        graph.addConnection("FD", "TG");
+        graph.addConnection("PQ", "NO");
+        graph.addConnection("RS", "TU");
+        graph.addConnection("OU", "RP");
+        graph.addConnection("AB", "CD");
+        graph.addConnection("EF", "GH");
+        graph.addConnection("CB", "ED");
+        graph.addConnection("GF", "HI");
+        graph.addConnection("AI", "TV");
+        graph.addConnection("XY", "AZ");
+        graph.addConnection("XT", "JK");
+        graph.addConnection("KL", "LT");
+        graph.addConnection("JX", "MN");
+        graph.addConnection("TN", "JL");
+        graph.addConnection("NO", "OP");
+        graph.addConnection("PT", "NX");
+        graph.addConnection("VZ", "AB");
+        graph.addConnection("BC", "CD");
+        graph.addConnection("DE", "EF");
+        graph.addConnection("FG", "GH");
+        graph.addConnection("HI", "IJ");
+        graph.addConnection("JA", "AC");
+        graph.addConnection("FZ", "AZ");
+        graph.addConnection("NO", "PQ");
+        graph.addConnection("RS", "TU");
+        graph.addConnection("OU", "RP");
+        graph.addConnection("AB", "CD");
+        graph.addConnection("EF", "GH");
+        graph.addConnection("AH", "CE");
+        graph.addConnection("NS", "FA");
+        graph.addConnection("GQ", "DT");
+        graph.addConnection("IX", "VX");
+        graph.addConnection("CX", "DX");
+        graph.addConnection("MX", "LX");
+        graph.addConnection("BY", "IB");
         
-        //use method from graph to check and return boolean
-        boolean answ = gr.CheckList(Strart, Finish, strList);
-        
-        pritout(Strart, Finish, answ);
+        // Test the "check" method with sample data
+        System.out.println(graph.check("C", "D", new HashSet<>())); // true
+        System.out.println(graph.check("P", "T", new HashSet<>())); // true
+        System.out.println(graph.check("A", "G", new HashSet<>())); // false
+        System.out.println(graph.check("H", "Q", new HashSet<>())); // true
+        System.out.println(graph.check("A", "I", new HashSet<>())); // true
+        System.out.println(graph.check("V", "Z", new HashSet<>())); // false
+        System.out.println(graph.check("A", "Z", new HashSet<>())); // true
+        System.out.println(graph.check("D", "T", new HashSet<>())); // true
+        System.out.println(graph.check("I", "B", new HashSet<>())); // false
     }
-    
-    
-    public void pritout(char sta, char fin, boolean answ){
-        System.out.println (sta + "connects to " + fin + " == " + answ);
-    } 
 }
