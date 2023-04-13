@@ -52,5 +52,9 @@ public class Graph {
             return false; // no connection found
         }
     }
+    
+    // Method to clear all connections in the graph
+    public void clear() {
+        connections.clear();
+    }
 }
-
