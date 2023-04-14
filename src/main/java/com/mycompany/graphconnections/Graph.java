@@ -4,8 +4,6 @@
  */
 package com.mycompany.graphconnections;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -16,7 +14,7 @@ import java.util.Set;
  * @author skyla
  */
 public class Graph {
-    private Map<String, Set<String>> connections;
+    private Map<String, String> connections;
 
     // Constructor
     public Graph() {
@@ -24,33 +22,46 @@ public class Graph {
     }
 
     // Method to add connections between nodes
-    public void addConnection(String from, String to) {
+    public void addConnection(String[] connect) {
+        for(String connection:connect){
+            String from = connection.charAt(0) + "";
+                        String to = connection.charAt(1) + "";
+
         if (!connections.containsKey(from)) {
-            connections.put(from, new HashSet<>());
+            connections.put(from, to);
+        }
+        else{
+                        connections.put(from, connections.get(from) + to);
         }
         if (!connections.containsKey(to)) {
-            connections.put(to, new HashSet<>());
+            connections.put(to, from);
         }
-        connections.get(from).add(to);
-        connections.get(to).add(from); // connections are bi-directional
+        else{
+                        connections.put(to, connections.get(to) + from);
+        }
+        }
+         
     }
 
     // Method to check if a connection exists between two nodes
-    public boolean check(String one, String two, Set<String> been) {
-        if (connections.containsKey(one) && connections.get(one).contains(two)) {
-            return true; // direct connection exists
+    public boolean check(String one, String two, String been) {
+        if(one.equals(two)){
+            return true;
         } else {
-            Set<String> connectionsForOne = connections.get(one);
-            for (String spot : connectionsForOne) {
-                if (!been.contains(spot)) {
-                    been.add(spot);
-                    if (check(spot, two, been)) {
+            String connectionsForOne = connections.get(one);
+            for (int spot = 0; spot < connectionsForOne.length(); spot++) {
+                if (!been.contains(connectionsForOne.charAt(spot) + "")) {
+                    been+=connectionsForOne.charAt(spot) +"" ;
+                    if (check(connectionsForOne.charAt(spot) +"", two, been)) {
                         return true; // recursive call to check for indirect connection
                     }
                 }
             }
-            return false; // no connection found
+            return false;
         }
+
+         
+
     }
     
     // Method to clear all connections in the graph
